@@ -1,0 +1,133 @@
+body {
+  margin: auto;
+  padding: 0;
+  
+  background-color: #727272;
+  background-image: repeating-linear-gradient(-45deg, #6a6a6a 0, #6a6a6a 2px, #727272 2px, #727272 11px);
+  background-size: 16px 16px;
+
+  font-size: 1rem;
+  overflow-x: hidden;
+}
+
+.dashbord{
+  padding-top: 60px;
+}
+
+.bg-gray {
+  background-color: #222;
+}
+
+.bg-dark-gray {
+  background-color: #181818;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-light-gray {
+  color: #cacaca;
+}
+
+/* Navbar */
+.navbar {
+  height: auto;
+  padding: 0.3rem 0;
+  transition: all 0.3s ease;
+  background: #141414;
+background: linear-gradient(90deg, rgba(20, 20, 20, 1) 0%, rgba(33, 33, 33, 1) 100%);
+}
+
+.navbar-toggler {
+  padding: 0.4rem 0.6rem;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 576px) {
+  .navbar-collapse {
+    padding: 1rem 0;
+  }
+
+  .navbar-nav .nav-link {
+    display: block;
+    font-size: 1.05rem;
+    margin: 0.2rem 0;
+  }
+}
+
+.login-card {
+  background-color: whitesmoke;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  margin-top: 100px;
+}
+
+.bdr {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.action-btn {
+  width: 70px;
+  text-align: center;
+}
+
+
+/* Sidebar */
+.sidebar {
+  display: none;
+  width: 260px;
+}
+
+.dashbord {
+  margin: auto;
+}
+
+.full-width {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.sidebar .list-group-item {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: #e0e0e0 !important;
+    padding: 12px 15px;
+}
+
+.sidebar .list-group-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 49px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 0 !important;
+    background: #1f1f1f;
+    background: linear-gradient(270deg, rgba(31, 31, 31, 1) 0%, rgba(43, 43, 43, 1) 100%);
+  }
+  .dashbord {
+    padding-left: 300px;
+  }
+  .footer {
+    padding-left: 300px;
+  }
+}

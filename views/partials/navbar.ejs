@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold px-3" href="/"><i class="fa-solid fa-earth-americas me-2"></i>CRUD Mundo</a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarConteudo" aria-controls="navbarConteudo"
+      aria-expanded="false" aria-label="Alternar navegação">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarConteudo">
+      <ul class="navbar-nav text-center">
+        <li class="nav-item">
+          <a class="nav-link px-3 py-2" href="/">Início</a>
+        </li>
+
+        <% if (session && session.user) { %>
+          <!-- Mostrar "Gerenciar" e "Logout" se o admin estiver logado -->
+          <li class="nav-item">
+            <a class="nav-link px-3 py-2" href="/geo">Gerenciar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3 py-2" href="/logout">Logout</a>
+          </li>
+        <% } else { %>
+          <!-- Mostrar apenas "Login" se não estiver logado -->
+          <li class="nav-item">
+            <a class="nav-link px-3 py-2" href="/login">Login</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
