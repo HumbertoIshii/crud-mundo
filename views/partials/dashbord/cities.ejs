@@ -1,0 +1,127 @@
+<div id="city" class="card shadow rounded-4 p-4 mb-3">
+    <h4 class="mb-3">Lista de Cidades</h4>
+
+    <!-- Search + Filters -->
+    <div class="row g-2 mb-3">
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Pesquisar cidade..." />
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="País ou Continente" />
+        </div>
+        <div class="col-md-3">
+            <select class="form-select">
+                <option>Ordenar por</option>
+                <option>Nome</option>
+                <option>População</option>
+                <option>Latitude</option>
+                <option>Longitude</option>
+                <option>País</option>
+                <option>Continente</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Cidade</th>
+                <th>País</th>
+                <th>Continente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-bs-toggle="modal" data-bs-target="#modalSaoPaulo">
+                <td>São Paulo</td>
+                <td>Brasil</td>
+                <td>América do Sul</td>
+            </tr>
+
+            <tr data-bs-toggle="modal" data-bs-target="#modalToquio">
+                <td>Tóquio</td>
+                <td>Japão</td>
+                <td>Ásia</td>
+            </tr>
+
+            <tr data-bs-toggle="modal" data-bs-target="#modalParis">
+                <td>Paris</td>
+                <td>França</td>
+                <td>Europa</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Modal São Paulo -->
+<div class="modal fade" id="modalSaoPaulo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">São Paulo</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>População:</strong> 12,3 milhões</p>
+                <p><strong>Latitude:</strong> -23.5505</p>
+                <p><strong>Longitude:</strong> -46.6333</p>
+                <p><strong>País:</strong> Brasil</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tóquio -->
+<div class="modal fade" id="modalToquio" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tóquio</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>População:</strong> 37,4 milhões</p>
+                <p><strong>Latitude:</strong> 35.6762</p>
+                <p><strong>Longitude:</strong> 139.6503</p>
+                <p><strong>País:</strong> Japão</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Paris -->
+<div class="modal fade" id="modalParis" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Paris</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>População:</strong> 2,1 milhões</p>
+                <p><strong>Latitude:</strong> 48.8566</p>
+                <p><strong>Longitude:</strong> 2.3522</p>
+                <p><strong>País:</strong> França</p>
+            </div>
+        </div>
+    </div>
+</div>

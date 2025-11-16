@@ -1,0 +1,325 @@
+<div id="admin-country" class="card shadow rounded-4 p-4 mb-3">
+    <h4 class="mb-3">Gerenciar Países</h4>
+
+    <!-- Controls -->
+    <div class="row g-2 mb-3">
+         <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Pesquisar país..." />
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Continente" />
+        </div>
+        <div class="col-md-2">
+            <select class="form-select">
+                <option>Ordenar por</option>
+                <option>Nome</option>
+                <option>População</option>
+                <option>Idioma oficial</option>
+                <option>Moeda</option>
+                <option>Continente</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCountry">
+                <i class="fas fa-plus me-2"></i>Adicionar
+            </button>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>País</th>
+                <th>Continente</th>
+                <th class="text-end">Excluir</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Brasil -->
+            <tr data-bs-toggle="modal" data-bs-target="#modalEditBrasil" style="cursor: pointer;">
+                <td>Brasil</td>
+                <td>América do Sul</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteBrasil" onclick="event.stopPropagation()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Japão -->
+            <tr data-bs-toggle="modal" data-bs-target="#modalEditJapao" style="cursor: pointer;">
+                <td>Japão</td>
+                <td>Ásia</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteJapao" onclick="event.stopPropagation()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <!-- França -->
+            <tr data-bs-toggle="modal" data-bs-target="#modalEditFranca" style="cursor: pointer;">
+                <td>França</td>
+                <td>Europa</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteFranca" onclick="event.stopPropagation()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<!-- ============================== -->
+<!-- Modal: Adicionar País          -->
+<!-- ============================== -->
+<div class="modal fade" id="modalAddCountry" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar País</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control mb-3" placeholder="Nome do país">
+
+                <label class="form-label">População</label>
+                <input type="number" class="form-control mb-3" placeholder="Ex: 213000000">
+
+                <label class="form-label">Idioma Oficial</label>
+                <input type="text" class="form-control mb-3" placeholder="Ex: Português">
+
+                <label class="form-label">Moeda</label>
+                <input type="text" class="form-control mb-3" placeholder="Ex: Real (BRL)">
+
+                <label class="form-label">Continente</label>
+                <select class="form-select mb-3">
+                    <option selected disabled>Selecione...</option>
+                    <option>América</option>
+                    <option>Europa</option>
+                    <option>Ásia</option>
+                    <option>África</option>
+                    <option>Oceania</option>
+                </select>
+
+                <button class="btn btn-success w-100">Adicionar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================== -->
+<!-- Modais de Edição               -->
+<!-- ============================== -->
+
+<!-- Editar Brasil -->
+<div class="modal fade" id="modalEditBrasil" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Brasil</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control mb-3" value="Brasil">
+
+                <label class="form-label">População</label>
+                <input type="number" class="form-control mb-3" value="213000000">
+
+                <label class="form-label">Idioma Oficial</label>
+                <input type="text" class="form-control mb-3" value="Português">
+
+                <label class="form-label">Moeda</label>
+                <input type="text" class="form-control mb-3" value="Real (BRL)">
+
+                <label class="form-label">Continente</label>
+                <select class="form-select mb-3">
+                    <option selected>América</option>
+                    <option>Europa</option>
+                    <option>Ásia</option>
+                    <option>África</option>
+                    <option>Oceania</option>
+                </select>
+
+                <button class="btn btn-primary w-100">Salvar alterações</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEditJapao" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Japão</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control mb-3" value="Japão">
+
+                <label class="form-label">População</label>
+                <input type="number" class="form-control mb-3" value="125800000">
+
+                <label class="form-label">Idioma Oficial</label>
+                <input type="text" class="form-control mb-3" value="Japonês">
+
+                <label class="form-label">Moeda</label>
+                <input type="text" class="form-control mb-3" value="Iene (JPY)">
+
+                <label class="form-label">Continente</label>
+                <select class="form-select mb-3">
+                    <option>América</option>
+                    <option>Europa</option>
+                    <option selected>Ásia</option>
+                    <option>África</option>
+                    <option>Oceania</option>
+                </select>
+
+                <button class="btn btn-primary w-100">Salvar alterações</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEditFranca" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Editar França</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control mb-3" value="França">
+
+                <label class="form-label">População</label>
+                <input type="number" class="form-control mb-3" value="67000000">
+
+                <label class="form-label">Idioma Oficial</label>
+                <input type="text" class="form-control mb-3" value="Francês">
+
+                <label class="form-label">Moeda</label>
+                <input type="text" class="form-control mb-3" value="Euro (EUR)">
+
+                <label class="form-label">Continente</label>
+                <select class="form-select mb-3">
+                    <option>América</option>
+                    <option selected>Europa</option>
+                    <option>Ásia</option>
+                    <option>África</option>
+                    <option>Oceania</option>
+                </select>
+
+                <button class="btn btn-primary w-100">Salvar alterações</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ============================== -->
+<!-- Modais de Exclusão             -->
+<!-- ============================== -->
+
+<!-- Excluir Brasil -->
+<div class="modal fade" id="modalDeleteBrasil" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">Excluir Brasil</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o país <strong>Brasil</strong>?</p>
+                <button class="btn btn-danger w-100">Confirmar exclusão</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Excluir Japão -->
+<div class="modal fade" id="modalDeleteJapao" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">Excluir Japão</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o país <strong>Japão</strong>?</p>
+                <button class="btn btn-danger w-100">Confirmar exclusão</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Excluir França -->
+<div class="modal fade" id="modalDeleteFranca" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">Excluir França</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o país <strong>França</strong>?</p>
+                <button class="btn btn-danger w-100">Confirmar exclusão</button>
+            </div>
+
+        </div>
+    </div>
+</div>

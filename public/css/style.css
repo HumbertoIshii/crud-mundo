@@ -1,42 +1,35 @@
+[id] {
+    scroll-margin-top: 60px;
+}
+
 body {
   margin: auto;
   padding: 0;
-  
   background-color: #727272;
   background-image: repeating-linear-gradient(-45deg, #6a6a6a 0, #6a6a6a 2px, #727272 2px, #727272 11px);
   background-size: 16px 16px;
-
   font-size: 1rem;
   overflow-x: hidden;
 }
 
-.dashbord{
+.dashbord {
   padding-top: 60px;
 }
 
-.bg-gray {
+.footer {
   background-color: #222;
 }
 
-.bg-dark-gray {
+.copyright {
   background-color: #181818;
-}
-
-.text-justify {
-  text-align: justify;
-}
-
-.text-light-gray {
-  color: #cacaca;
 }
 
 /* Navbar */
 .navbar {
   height: auto;
   padding: 0.3rem 0;
-  transition: all 0.3s ease;
   background: #141414;
-background: linear-gradient(90deg, rgba(20, 20, 20, 1) 0%, rgba(33, 33, 33, 1) 100%);
+  background: linear-gradient(90deg, rgba(20, 20, 20, 1) 0%, rgba(33, 33, 33, 1) 100%);
 }
 
 .navbar-toggler {
@@ -97,15 +90,15 @@ background: linear-gradient(90deg, rgba(20, 20, 20, 1) 0%, rgba(33, 33, 33, 1) 1
 }
 
 .sidebar .list-group-item {
-    background: transparent !important;
-    border-color: transparent !important;
-    color: #e0e0e0 !important;
-    padding: 12px 15px;
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #e0e0e0 !important;
+  padding: 12px 15px;
 }
 
 .sidebar .list-group-item:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
 }
 
 
@@ -124,9 +117,11 @@ background: linear-gradient(90deg, rgba(20, 20, 20, 1) 0%, rgba(33, 33, 33, 1) 1
     background: #1f1f1f;
     background: linear-gradient(270deg, rgba(31, 31, 31, 1) 0%, rgba(43, 43, 43, 1) 100%);
   }
+
   .dashbord {
     padding-left: 300px;
   }
+
   .footer {
     padding-left: 300px;
   }

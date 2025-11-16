@@ -1,0 +1,108 @@
+<div id="continent" class="card shadow rounded-4 p-4 mb-3">
+    <h4 class="mb-3">Lista de Continentes</h4>
+
+    <!-- Search + Filter -->
+    <div class="row g-2 mb-3">
+        <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Pesquisar continente..." />
+        </div>
+        <div class="col-md-4">
+            <select class="form-select">
+                <option>Ordenar por</option>
+                <option>Nome</option>
+                <option>Quantidade de países</option>
+            </select>
+        </div>
+    </div>
+
+
+    <!-- Table -->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Continente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-bs-toggle="modal" data-bs-target="#modalAfrica">
+                <td>África</td>
+            </tr>
+            <tr data-bs-toggle="modal" data-bs-target="#modalEuropa">
+                <td>Europa</td>
+            </tr>
+            <tr data-bs-toggle="modal" data-bs-target="#modalAsia">
+                <td>Ásia</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Modal África -->
+<div class="modal fade" id="modalAfrica" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">África</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Maior deserto: Saara</p>
+                <p>Número aproximado de países: 54</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Europa -->
+<div class="modal fade" id="modalEuropa" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Europa</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Maior economia: Alemanha</p>
+                <p>Número aproximado de países: 44</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Ásia -->
+<div class="modal fade" id="modalAsia" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ásia</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Maior população do mundo</p>
+                <p>Número aproximado de países: 48</p>
+            </div>
+        </div>
+    </div>
+</div>

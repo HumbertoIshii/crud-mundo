@@ -1,0 +1,120 @@
+<div id="country" class="card shadow rounded-4 p-4 mb-3">
+    <h4 class="mb-3">Lista de Países</h4>
+
+    <!-- Search + Filter -->
+    <div class="row g-2 mb-3">
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Pesquisar país..." />
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="Continente" />
+        </div>
+        <div class="col-md-3">
+            <select class="form-select">
+                <option>Ordenar por</option>
+                <option>Nome</option>
+                <option>População</option>
+                <option>Idioma oficial</option>
+                <option>Moeda</option>
+                <option>Continente</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>País</th>
+                <th>Continente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-bs-toggle="modal" data-bs-target="#modalBrasil">
+                <td>Brasil</td>
+                <td>América do Sul</td>
+            </tr>
+            <tr data-bs-toggle="modal" data-bs-target="#modalJapao">
+                <td>Japão</td>
+                <td>Ásia</td>
+            </tr>
+            <tr data-bs-toggle="modal" data-bs-target="#modalFranca">
+                <td>França</td>
+                <td>Europa</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Modal Brasil -->
+<div class="modal fade" id="modalBrasil" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Brasil</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>População:</strong> 203 milhões</p>
+                <p><strong>Idioma oficial:</strong> Português</p>
+                <p><strong>Moeda:</strong> Real (BRL)</p>
+                <p><strong>Continente:</strong> América do Sul</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Japão -->
+<div class="modal fade" id="modalJapao" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Japão</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>População:</strong> 125 milhões</p>
+                <p><strong>Idioma oficial:</strong> Japonês</p>
+                <p><strong>Moeda:</strong> Iene (JPY)</p>
+                <p><strong>Continente:</strong> Ásia</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal França -->
+<div class="modal fade" id="modalFranca" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">França</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>População:</strong> 67 milhões</p>
+                <p><strong>Idioma oficial:</strong> Francês</p>
+                <p><strong>Moeda:</strong> Euro (EUR)</p>
+                <p><strong>Continente:</strong> Europa</p>
+            </div>
+        </div>
+    </div>
+</div>

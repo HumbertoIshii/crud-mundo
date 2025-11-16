@@ -1,7 +1,31 @@
 <div class="container-fluid">
     <div class="sidebar list-group">
-        <a href="#continent" class="list-group-item list-group-item-action"><i class="fas fa-earth-americas fa-fw me-2"></i></i><span>Continentes</span></a>
-        <a href="#country" class="list-group-item list-group-item-action"><i class="fas fa-flag fa-fw me-2"></i><span>Países</span></a>
-        <a href="#city" class="list-group-item list-group-item-action"><i class="fas fa-city fa-fw me-2"></i><span>Cidades</span></a>
+
+        <% if (page === "dashboard") { %>
+            <a href="#" class="list-group-item list-group-item-action">
+                <i class="fas fa-info-circle fa-fw me-2"></i><span>Geral</span>
+            </a>
+            <a href="#dashbord-continent" class="list-group-item list-group-item-action">
+                <i class="fas fa-earth-americas fa-fw me-2"></i><span>Continentes</span>
+            </a>
+            <a href="#dashbord-country" class="list-group-item list-group-item-action">
+                <i class="fas fa-flag fa-fw me-2"></i><span>Países</span>
+            </a>
+            <a href="#dashbord-city" class="list-group-item list-group-item-action">
+                <i class="fas fa-city fa-fw me-2"></i><span>Cidades</span>
+            </a>
+
+        <% } else if (page === "admin") { %>
+            <a href="#admin-continent" class="list-group-item list-group-item-action">
+                <i class="fas fa-earth-americas fa-fw me-2"></i><span>Continentes</span>
+            </a>
+            <a href="#admin-country" class="list-group-item list-group-item-action">
+                <i class="fas fa-flag fa-fw me-2"></i><span>Países</span>
+            </a>
+            <a href="#admin-city" class="list-group-item list-group-item-action">
+                <i class="fas fa-city fa-fw me-2"></i><span>Cidades</span>
+            </a>
+        <% } %>
+
     </div>
 </div>

@@ -13,6 +13,7 @@ router.get("/", async (req, res) => {
     totalContinentes,
     totalPaises,
     totalCidades,
+    page: "dashboard"
   });
 });
 

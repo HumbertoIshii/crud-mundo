@@ -1,0 +1,335 @@
+<div id="admin-city" class="card shadow rounded-4 p-4 mb-3">
+    <h4 class="mb-3">Gerenciar Cidades</h4>
+
+    <!-- Controls -->
+    <div class="row g-2 mb-3">
+        <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="Pesquisar cidade..." />
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="País ou Continente" />
+        </div>
+        <div class="col-md-2">
+            <select class="form-select">
+                <option>Ordenar por</option>
+                <option>Nome</option>
+                <option>População</option>
+                <option>Latitude</option>
+                <option>Longitude</option>
+                <option>País</option>
+                <option>Continente</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCity">
+                <i class="fas fa-plus me-2"></i>Adicionar
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Table -->
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Cidade</th>
+                <th>País</th>
+                <th>Continente</th>
+                <th class="text-end">Excluir</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- São Paulo -->
+            <tr data-bs-toggle="modal" data-bs-target="#modalEditSaoPaulo" style="cursor: pointer;">
+                <td>São Paulo</td>
+                <td>Brasil</td>
+                <td>América do Sul</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-danger"
+                        onclick="event.stopPropagation()"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDeleteSaoPaulo">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Tóquio -->
+            <tr data-bs-toggle="modal" data-bs-target="#modalEditToquio" style="cursor: pointer;">
+                <td>Tóquio</td>
+                <td>Japão</td>
+                <td>Ásia</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-danger"
+                        onclick="event.stopPropagation()"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDeleteToquio">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Paris -->
+            <tr data-bs-toggle="modal" data-bs-target="#modalEditParis" style="cursor: pointer;">
+                <td>Paris</td>
+                <td>França</td>
+                <td>Europa</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-danger"
+                        onclick="event.stopPropagation()"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDeleteParis">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#"><span>&laquo;</span></a>
+            </li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link text-secondary" href="#"><span>&raquo;</span></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<!-- ============================== -->
+<!-- Modal: Adicionar Cidade        -->
+<!-- ============================== -->
+<div class="modal fade" id="modalAddCity" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Cidade</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control mb-3" placeholder="Nome da cidade">
+
+                <label class="form-label">População</label>
+                <input type="number" class="form-control mb-3" placeholder="Ex: 12000000">
+
+                <label class="form-label">Latitude</label>
+                <input type="number" step="0.0001" class="form-control mb-3" placeholder="Ex: -23.5505">
+
+                <label class="form-label">Longitude</label>
+                <input type="number" step="0.0001" class="form-control mb-3" placeholder="Ex: -46.6333">
+
+                <label class="form-label">País</label>
+                <select class="form-select mb-3">
+                    <option selected disabled>Selecione...</option>
+                    <option>Brasil</option>
+                    <option>Japão</option>
+                    <option>França</option>
+                </select>
+
+                <button class="btn btn-success w-100">Adicionar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ============================== -->
+<!-- Modais de Edição               -->
+<!-- ============================== -->
+
+<!-- Editar São Paulo -->
+<div class="modal fade" id="modalEditSaoPaulo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Editar São Paulo</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control mb-3" value="São Paulo">
+
+                <label class="form-label">População</label>
+                <input type="number" class="form-control mb-3" value="12300000">
+
+                <label class="form-label">Latitude</label>
+                <input type="number" step="0.0001" class="form-control mb-3" value="-23.5505">
+
+                <label class="form-label">Longitude</label>
+                <input type="number" step="0.0001" class="form-control mb-3" value="-46.6333">
+
+                <label class="form-label">País</label>
+                <select class="form-select mb-3">
+                    <option selected>Brasil</option>
+                    <option>Japão</option>
+                    <option>França</option>
+                </select>
+
+                <button class="btn btn-primary w-100">Salvar alterações</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Editar Tóquio -->
+<div class="modal fade" id="modalEditToquio" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Tóquio</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control mb-3" value="Tóquio">
+
+                <label class="form-label">População</label>
+                <input type="number" class="form-control mb-3" value="37400000">
+
+                <label class="form-label">Latitude</label>
+                <input type="number" step="0.0001" class="form-control mb-3" value="35.6762">
+
+                <label class="form-label">Longitude</label>
+                <input type="number" step="0.0001" class="form-control mb-3" value="139.6503">
+
+                <label class="form-label">País</label>
+                <select class="form-select mb-3">
+                    <option>Brasil</option>
+                    <option selected>Japão</option>
+                    <option>França</option>
+                </select>
+
+                <button class="btn btn-primary w-100">Salvar alterações</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Editar Paris -->
+<div class="modal fade" id="modalEditParis" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Paris</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control mb-3" value="Paris">
+
+                <label class="form-label">População</label>
+                <input type="number" class="form-control mb-3" value="2100000">
+
+                <label class="form-label">Latitude</label>
+                <input type="number" step="0.0001" class="form-control mb-3" value="48.8566">
+
+                <label class="form-label">Longitude</label>
+                <input type="number" step="0.0001" class="form-control mb-3" value="2.3522">
+
+                <label class="form-label">País</label>
+                <select class="form-select mb-3">
+                    <option>Brasil</option>
+                    <option>Japão</option>
+                    <option selected>França</option>
+                </select>
+
+                <button class="btn btn-primary w-100">Salvar alterações</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ============================== -->
+<!-- Modais de Exclusão             -->
+<!-- ============================== -->
+
+<!-- Excluir São Paulo -->
+<div class="modal fade" id="modalDeleteSaoPaulo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">Excluir São Paulo</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir a cidade <strong>São Paulo</strong>?</p>
+                <button class="btn btn-danger w-100">Confirmar exclusão</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Excluir Tóquio -->
+<div class="modal fade" id="modalDeleteToquio" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">Excluir Tóquio</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir a cidade <strong>Tóquio</strong>?</p>
+                <button class="btn btn-danger w-100">Confirmar exclusão</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Excluir Paris -->
+<div class="modal fade" id="modalDeleteParis" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">Excluir Paris</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir a cidade <strong>Paris</strong>?</p>
+                <button class="btn btn-danger w-100">Confirmar exclusão</button>
+            </div>
+
+        </div>
+    </div>
+</div>
