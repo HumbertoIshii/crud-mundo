@@ -6,14 +6,26 @@ crud-mundo/
 ├── public/
 │   ├── css/
 │   │   └── style.css
-│   └── images/
+│   └── js/
+│       ├── geo.js
+│       └── index.js
 ├── types/
+│   ├── entities.d.ts
 │   └── express-session.d.ts
 ├── views/
 │   ├── partials/
 │   │   ├── sidebar.ejs
 │   │   ├── navbar.ejs
-│   │   └── footer.ejs
+│   │   ├── footer.ejs
+│   │   ├── admin/
+│   │   │   ├── cities.ejs
+│   │   │   ├── continents.ejs
+│   │   │   └── countries.ejs
+│   │   └── dashboard/
+│   │       ├── general.ejs
+│   │       ├── cities.ejs
+│   │       ├── continents.ejs
+│   │       └── countries.ejs
 │   ├── index.ejs
 │   ├── layout.ejs
 │   ├── login.ejs

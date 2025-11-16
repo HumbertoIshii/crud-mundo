@@ -8,7 +8,7 @@ router.use((req: Request, res: Response, next) => {
 });
 
 router.get("/", async (req, res) => {
-  res.render("geo", { page: "admin" });
+  res.render("geo", { pageSidebar: "admin" });
 });
 
 export default router;
