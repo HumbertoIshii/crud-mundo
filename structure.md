@@ -4,8 +4,11 @@ crud-mundo/
 │   ├── database.sql
 │   └── create-database.ts
 ├── public/
-│   └── css/
-│       └── style.css
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       ├── index.js
+│       └── geo.js
 ├── types/
 │   ├── entities.d.ts
 │   └── express-session.d.ts
@@ -31,17 +34,25 @@ crud-mundo/
 │   ├── geo.ts
 │   ├── auth.ts
 │   ├── index.ts
-│   └── dashbord/
+│   ├── dashbord/
+│   │   ├── cities.ts
+│   │   ├── continents.ts
+│   │   ├── countries.ts
+│   │   └── general.ts
+│   └── admin/
 │       ├── cities.ts
 │       ├── continents.ts
-│       ├── countries.ts
-│       └── general.ts
+│       └── countries.ts
 ├── services/
-│   └── dashbord/
+│   ├── dashbord/
+│   │   ├── cities.service.ts
+│   │   ├── continents.service.ts
+│   │   ├── countries.service.ts
+│   │   └── general.service.ts
+│   └── admin/
 │       ├── cities.service.ts
 │       ├── continents.service.ts
-│       ├── countries.service.ts
-│       └── general.service.ts
+│       └── countries.service.ts
 ├── app.ts
 ├── .env.template
 ├── .gitignore

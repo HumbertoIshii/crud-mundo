@@ -3,18 +3,6 @@
 
     <!-- Controls -->
     <div class="row g-2 mb-3">
-        <div class="col-md-7">
-            <input type="text" class="form-control" placeholder="Pesquisar continente..." />
-        </div>
-
-        <div class="col-md-3">
-            <select class="form-select">
-                <option>Ordenar por</option>
-                <option>Nome</option>
-                <option>Quantidade de países</option>
-            </select>
-        </div>
-
         <div class="col-md-2">
             <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddContinent">
                 <i class="fas fa-plus me-2"></i>Adicionar
@@ -32,220 +20,93 @@
         </thead>
 
         <tbody>
-            <!-- África -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditAfrica" style="cursor: pointer;">
-                <td>África</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteAfrica" onclick="event.stopPropagation()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <!-- Europa -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditEuropa" style="cursor: pointer;">
-                <td>Europa</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteEuropa" onclick="event.stopPropagation()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <!-- Ásia -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditAsia" style="cursor: pointer;">
-                <td>Ásia</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteAsia" onclick="event.stopPropagation()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
+            <% if (continents && continents.length > 0) { %>
+                <% continents.forEach(cont => { %>
+                    <tr data-bs-toggle="modal" data-bs-target="#modalEdit<%= cont.id %>" style="cursor:pointer;">
+                        <td><%= cont.nome %></td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete<%= cont.id %>" onclick="event.stopPropagation()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="2" class="text-center text-muted">Nenhum continente encontrado.</td>
+                </tr>
+            <% } %>
         </tbody>
     </table>
-
-    <!-- Pagination -->
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link text-secondary" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link text-secondary" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
 </div>
 
-
-<!-- ============================== -->
-<!-- Modal: Adicionar Continente    -->
-<!-- ============================== -->
+<!-- Modal Adicionar -->
 <div class="modal fade" id="modalAddContinent" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Adicionar Continente</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3">
-
-                <label class="form-label">Descrição</label>
-                <textarea class="form-control mb-3"></textarea>
-
-                <button class="btn btn-success w-100">Adicionar</button>
-            </div>
-
+            <form action="/geo/continents/create" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Continente</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome" class="form-control mb-3" required>
+                    <label class="form-label">Descrição</label>
+                    <textarea name="descricao" class="form-control mb-3" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success w-100">Adicionar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-
-<!-- ============================== -->
-<!-- Modais de Edição (mock)        -->
-<!-- ============================== -->
-
-<!-- Editar África -->
-<div class="modal fade" id="modalEditAfrica" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Editar África</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
+<!-- Modais Editar e Deletar -->
+<% if (continents && continents.length > 0) { %>
+    <% continents.forEach(cont => { %>
+        <!-- Editar -->
+        <div class="modal fade" id="modalEdit<%= cont.id %>" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="/geo/continents/edit/<%= cont.id %>" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Editar <%= cont.nome %></h5>
+                            <button class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">Nome</label>
+                            <input type="text" name="nome" class="form-control mb-3" value="<%= cont.nome %>" required>
+                            <label class="form-label">Descrição</label>
+                            <textarea name="descricao" class="form-control mb-3" required><%= cont.descricao %></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary w-100">Salvar alterações</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div class="modal-body">
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="África">
-
-                <label class="form-label">Descrição</label>
-                <textarea class="form-control mb-3">Maior deserto: Saara</textarea>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-            </div>
-
         </div>
-    </div>
-</div>
 
-<!-- Editar Europa -->
-<div class="modal fade" id="modalEditEuropa" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Editar Europa</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
+        <!-- Deletar -->
+        <div class="modal fade" id="modalDelete<%= cont.id %>" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="/geo/continents/delete/<%= cont.id %>" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-danger">Excluir <%= cont.nome %></h5>
+                            <button class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Tem certeza que deseja excluir o continente <strong><%= cont.nome %></strong>?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger w-100">Confirmar exclusão</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div class="modal-body">
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="Europa">
-
-                <label class="form-label">Descrição</label>
-                <textarea class="form-control mb-3">Maior economia: Alemanha</textarea>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-            </div>
-
         </div>
-    </div>
-</div>
-
-<!-- Editar Ásia -->
-<div class="modal fade" id="modalEditAsia" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Editar Ásia</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="Ásia">
-
-                <label class="form-label">Descrição</label>
-                <textarea class="form-control mb-3">Maior população do mundo</textarea>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<!-- ============================== -->
-<!-- Modais de Confirmação (delete) -->
-<!-- ============================== -->
-
-<!-- Excluir África -->
-<div class="modal fade" id="modalDeleteAfrica" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir África</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir o continente <strong>África</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Excluir Europa -->
-<div class="modal fade" id="modalDeleteEuropa" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir Europa</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir o continente <strong>Europa</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Excluir Ásia -->
-<div class="modal fade" id="modalDeleteAsia" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir Ásia</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir o continente <strong>Ásia</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
+    <% }) %>
+<% } %>
