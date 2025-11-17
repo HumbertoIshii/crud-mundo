@@ -3,7 +3,12 @@
 
     <!-- Controls -->
     <div class="row g-2 mb-3">
-         <div class="col-md-6">
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCountry">
+                <i class="fas fa-plus me-2"></i>Adicionar
+            </button>
+        </div>
+        <div class="col-md-5">
             <input type="text" class="form-control" placeholder="Pesquisar país..." />
         </div>
         <div class="col-md-2">
@@ -19,10 +24,8 @@
                 <option>Continente</option>
             </select>
         </div>
-        <div class="col-md-2">
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCountry">
-                <i class="fas fa-plus me-2"></i>Adicionar
-            </button>
+        <div class="col-md-1">
+            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCountry">Buscar</button>
         </div>
     </div>
 
@@ -42,7 +45,8 @@
                 <td>Brasil</td>
                 <td>América do Sul</td>
                 <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteBrasil" onclick="event.stopPropagation()">
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteBrasil"
+                        onclick="event.stopPropagation()">
                         <i class="fas fa-times"></i>
                     </button>
                 </td>
@@ -53,7 +57,8 @@
                 <td>Japão</td>
                 <td>Ásia</td>
                 <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteJapao" onclick="event.stopPropagation()">
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteJapao"
+                        onclick="event.stopPropagation()">
                         <i class="fas fa-times"></i>
                     </button>
                 </td>
@@ -64,7 +69,8 @@
                 <td>França</td>
                 <td>Europa</td>
                 <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteFranca" onclick="event.stopPropagation()">
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteFranca"
+                        onclick="event.stopPropagation()">
                         <i class="fas fa-times"></i>
                     </button>
                 </td>
@@ -107,27 +113,52 @@
 
             <div class="modal-body">
 
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" placeholder="Nome do país">
+                <div class="row g-2 mb-3">
+                    <div class="col-8">
+                        <input type="text" class="form-control" placeholder="Nome do país">
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-success w-100">Buscar</button>
+                    </div>
+                </div>
 
-                <label class="form-label">População</label>
-                <input type="number" class="form-control mb-3" placeholder="Ex: 213000000">
+                <!-- Linha: População + Idioma Oficial -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">População</label>
+                        <input type="number" class="form-control" placeholder="Ex: 213000000">
+                    </div>
 
-                <label class="form-label">Idioma Oficial</label>
-                <input type="text" class="form-control mb-3" placeholder="Ex: Português">
+                    <div class="col-md-6">
+                        <label class="form-label">Idioma Oficial</label>
+                        <input type="text" class="form-control" placeholder="Ex: Português">
+                    </div>
+                </div>
 
-                <label class="form-label">Moeda</label>
-                <input type="text" class="form-control mb-3" placeholder="Ex: Real (BRL)">
+                <!-- Linha: Moeda + Continente -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Moeda</label>
+                        <input type="text" class="form-control" placeholder="Ex: Real (BRL)">
+                    </div>
 
-                <label class="form-label">Continente</label>
-                <select class="form-select mb-3">
-                    <option selected disabled>Selecione...</option>
-                    <option>América</option>
-                    <option>Europa</option>
-                    <option>Ásia</option>
-                    <option>África</option>
-                    <option>Oceania</option>
-                </select>
+                    <div class="col-md-6">
+                        <label class="form-label">Continente</label>
+                        <select class="form-select">
+                            <option selected disabled>Selecione...</option>
+                            <option>América</option>
+                            <option>Europa</option>
+                            <option>Ásia</option>
+                            <option>África</option>
+                            <option>Oceania</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center mb-3">
+                    <img src="https://flagcdn.com/w320/un.png" alt="Bandeira do País"
+                        class="img-fluid rounded shadow-sm" style="max-width: 120px;">
+                </div>
 
                 <button class="btn btn-success w-100">Adicionar</button>
 
@@ -138,7 +169,7 @@
 
 
 <!-- ============================== -->
-<!-- Modais de Edição               -->
+<!-- ModaL               -->
 <!-- ============================== -->
 
 <!-- Editar Brasil -->
@@ -153,26 +184,46 @@
 
             <div class="modal-body">
 
+                <!-- Nome (linha inteira) -->
                 <label class="form-label">Nome</label>
                 <input type="text" class="form-control mb-3" value="Brasil">
 
-                <label class="form-label">População</label>
-                <input type="number" class="form-control mb-3" value="213000000">
+                <!-- Linha: População + Idioma -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">População</label>
+                        <input type="number" class="form-control" value="213000000">
+                    </div>
 
-                <label class="form-label">Idioma Oficial</label>
-                <input type="text" class="form-control mb-3" value="Português">
+                    <div class="col-md-6">
+                        <label class="form-label">Idioma Oficial</label>
+                        <input type="text" class="form-control" value="Português">
+                    </div>
+                </div>
 
-                <label class="form-label">Moeda</label>
-                <input type="text" class="form-control mb-3" value="Real (BRL)">
+                <!-- Linha: Moeda + Continente -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Moeda</label>
+                        <input type="text" class="form-control" value="Real (BRL)">
+                    </div>
 
-                <label class="form-label">Continente</label>
-                <select class="form-select mb-3">
-                    <option selected>América</option>
-                    <option>Europa</option>
-                    <option>Ásia</option>
-                    <option>África</option>
-                    <option>Oceania</option>
-                </select>
+                    <div class="col-md-6">
+                        <label class="form-label">Continente</label>
+                        <select class="form-select">
+                            <option selected>América</option>
+                            <option>Europa</option>
+                            <option>Ásia</option>
+                            <option>África</option>
+                            <option>Oceania</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center mb-3">
+                    <img src="https://flagcdn.com/w320/br.png" alt="Bandeira do Brasil"
+                        class="img-fluid rounded shadow-sm" style="max-width: 120px;">
+                </div>
 
                 <button class="btn btn-primary w-100">Salvar alterações</button>
 
@@ -180,6 +231,7 @@
         </div>
     </div>
 </div>
+
 
 
 <div class="modal fade" id="modalEditJapao" tabindex="-1">
@@ -193,26 +245,46 @@
 
             <div class="modal-body">
 
+                <!-- Nome -->
                 <label class="form-label">Nome</label>
                 <input type="text" class="form-control mb-3" value="Japão">
 
-                <label class="form-label">População</label>
-                <input type="number" class="form-control mb-3" value="125800000">
+                <!-- População + Idioma -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">População</label>
+                        <input type="number" class="form-control" value="125800000">
+                    </div>
 
-                <label class="form-label">Idioma Oficial</label>
-                <input type="text" class="form-control mb-3" value="Japonês">
+                    <div class="col-md-6">
+                        <label class="form-label">Idioma Oficial</label>
+                        <input type="text" class="form-control" value="Japonês">
+                    </div>
+                </div>
 
-                <label class="form-label">Moeda</label>
-                <input type="text" class="form-control mb-3" value="Iene (JPY)">
+                <!-- Moeda + Continente -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Moeda</label>
+                        <input type="text" class="form-control" value="Iene (JPY)">
+                    </div>
 
-                <label class="form-label">Continente</label>
-                <select class="form-select mb-3">
-                    <option>América</option>
-                    <option>Europa</option>
-                    <option selected>Ásia</option>
-                    <option>África</option>
-                    <option>Oceania</option>
-                </select>
+                    <div class="col-md-6">
+                        <label class="form-label">Continente</label>
+                        <select class="form-select">
+                            <option>América</option>
+                            <option>Europa</option>
+                            <option selected>Ásia</option>
+                            <option>África</option>
+                            <option>Oceania</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center mb-3">
+                    <img src="https://flagcdn.com/w320/jp.png" alt="Bandeira do Japão"
+                        class="img-fluid rounded shadow-sm" style="max-width: 120px;">
+                </div>
 
                 <button class="btn btn-primary w-100">Salvar alterações</button>
 
@@ -220,6 +292,7 @@
         </div>
     </div>
 </div>
+
 
 
 <div class="modal fade" id="modalEditFranca" tabindex="-1">
@@ -233,26 +306,46 @@
 
             <div class="modal-body">
 
+                <!-- Nome -->
                 <label class="form-label">Nome</label>
                 <input type="text" class="form-control mb-3" value="França">
 
-                <label class="form-label">População</label>
-                <input type="number" class="form-control mb-3" value="67000000">
+                <!-- População + Idioma -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">População</label>
+                        <input type="number" class="form-control" value="67000000">
+                    </div>
 
-                <label class="form-label">Idioma Oficial</label>
-                <input type="text" class="form-control mb-3" value="Francês">
+                    <div class="col-md-6">
+                        <label class="form-label">Idioma Oficial</label>
+                        <input type="text" class="form-control" value="Francês">
+                    </div>
+                </div>
 
-                <label class="form-label">Moeda</label>
-                <input type="text" class="form-control mb-3" value="Euro (EUR)">
+                <!-- Moeda + Continente -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Moeda</label>
+                        <input type="text" class="form-control" value="Euro (EUR)">
+                    </div>
 
-                <label class="form-label">Continente</label>
-                <select class="form-select mb-3">
-                    <option>América</option>
-                    <option selected>Europa</option>
-                    <option>Ásia</option>
-                    <option>África</option>
-                    <option>Oceania</option>
-                </select>
+                    <div class="col-md-6">
+                        <label class="form-label">Continente</label>
+                        <select class="form-select">
+                            <option>América</option>
+                            <option selected>Europa</option>
+                            <option>Ásia</option>
+                            <option>África</option>
+                            <option>Oceania</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center mb-3">
+                    <img src="https://flagcdn.com/w320/fr.png" alt="Bandeira do França"
+                        class="img-fluid rounded shadow-sm" style="max-width: 120px;">
+                </div>
 
                 <button class="btn btn-primary w-100">Salvar alterações</button>
 
@@ -260,6 +353,7 @@
         </div>
     </div>
 </div>
+
 
 
 
