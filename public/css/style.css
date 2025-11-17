@@ -1,13 +1,14 @@
 [id] {
-    scroll-margin-top: 60px;
+  scroll-margin-top: 60px;
 }
 
 body {
   margin: auto;
   padding: 0;
-  background-color: #727272;
-  background-image: repeating-linear-gradient(-45deg, #6a6a6a 0, #6a6a6a 2px, #727272 2px, #727272 11px);
-  background-size: 16px 16px;
+  background-color: #d6d6d6;
+  opacity: 1;
+  background: radial-gradient(circle, transparent 20%, #d6d6d6 20%, #d6d6d6 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #d6d6d6 20%, #d6d6d6 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#c9c9c9 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #c9c9c9 2px, #d6d6d6 2px) -1px 0;
+  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
   font-size: 1rem;
   overflow-x: hidden;
 }
