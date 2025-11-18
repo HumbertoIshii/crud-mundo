@@ -1,33 +1,37 @@
 <div id="admin-country" class="card shadow rounded-4 p-4 mb-3">
     <h4 class="mb-3">Gerenciar Países</h4>
 
-    <!-- Controls -->
-    <div class="row g-2 mb-3">
+    <!-- Controls / Filters (submete GET para /geo) -->
+    <form method="GET" class="row g-2 mb-3">
         <div class="col-md-2">
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCountry">
+            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCountry">
                 <i class="fas fa-plus me-2"></i>Adicionar
             </button>
         </div>
-        <div class="col-md-5">
-            <input type="text" class="form-control" placeholder="Pesquisar país..." />
+        <div class="col-md-4">
+            <input type="text" name="search" value="<%= search || '' %>" class="form-control" placeholder="Pesquisar país..." />
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" name="continent">
+                <option value="">Todos os continentes</option>
+                <% (continents || []).forEach(c => { %>
+                    <option value="<%= c.id %>" <%= c.id == (continentSelected || '') ? 'selected' : '' %>><%= c.nome %></option>
+                <% }) %>
+            </select>
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="Continente" />
-        </div>
-        <div class="col-md-2">
-            <select class="form-select">
-                <option>Ordenar por</option>
-                <option>Nome</option>
-                <option>População</option>
-                <option>Idioma oficial</option>
-                <option>Moeda</option>
-                <option>Continente</option>
+            <select class="form-select" name="orderBy">
+                <option value="nome" <%= orderBy === "nome" ? "selected" : "" %>>Nome</option>
+                <option value="populacao" <%= orderBy === "populacao" ? "selected" : "" %>>População</option>
+                <option value="idioma" <%= orderBy === "idioma" ? "selected" : "" %>>Idioma</option>
+                <option value="moeda" <%= orderBy === "moeda" ? "selected" : "" %>>Moeda</option>
+                <option value="continente" <%= orderBy === "continente" ? "selected" : "" %>>Continente</option>
             </select>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCountry">Buscar</button>
+            <button class="btn btn-primary w-100">Buscar</button>
         </div>
-    </div>
+    </form>
 
     <!-- Table -->
     <table class="table table-hover align-middle">
@@ -40,380 +44,206 @@
         </thead>
 
         <tbody>
-            <!-- Brasil -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditBrasil" style="cursor: pointer;">
-                <td>Brasil</td>
-                <td>América do Sul</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteBrasil"
-                        onclick="event.stopPropagation()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <!-- Japão -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditJapao" style="cursor: pointer;">
-                <td>Japão</td>
-                <td>Ásia</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteJapao"
-                        onclick="event.stopPropagation()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <!-- França -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditFranca" style="cursor: pointer;">
-                <td>França</td>
-                <td>Europa</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteFranca"
-                        onclick="event.stopPropagation()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
+            <% if (!countries || countries.length === 0) { %>
+                <tr>
+                    <td colspan="3" class="text-center text-muted">Nenhum país encontrado.</td>
+                </tr>
+            <% } else { %>
+                <% countries.forEach(p => { %>
+                    <tr data-bs-toggle="modal" data-bs-target="#modalEditCountry-<%= p.id %>" style="cursor:pointer;">
+                        <td><%= p.nome %></td>
+                        <td><%= p.continente %></td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-danger"
+                                data-bs-toggle="modal" data-bs-target="#modalDeleteCountry-<%= p.id %>"
+                                onclick="event.stopPropagation()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } %>
         </tbody>
     </table>
 
     <!-- Pagination -->
     <nav>
         <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link text-secondary" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link text-secondary" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
+            <% if (currentPage > 1) { %>
+                <li class="page-item">
+                    <a class="page-link text-secondary"
+                        href="?countryPage=<%= currentPage - 1 %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
+                        &laquo;
+                    </a>
+                </li>
+            <% } %>
+
+            <% for (let i = 1; i <= (totalPages || 1); i++) { %>
+                <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                    <a class="page-link"
+                        href="?countryPage=<%= i %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
+                        <%= i %>
+                    </a>
+                </li>
+            <% } %>
+
+            <% if (currentPage < totalPages) { %>
+                <li class="page-item">
+                    <a class="page-link text-secondary"
+                        href="?countryPage=<%= currentPage + 1 %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
+                        &raquo;
+                    </a>
+                </li>
+            <% } %>
         </ul>
     </nav>
 </div>
 
-
-<!-- ============================== -->
-<!-- Modal: Adicionar País          -->
-<!-- ============================== -->
+<!-- Modal Adicionar País -->
 <div class="modal fade" id="modalAddCountry" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Adicionar País</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <div class="row g-2 mb-3">
-                    <div class="col-8">
-                        <input type="text" class="form-control" placeholder="Nome do país">
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-success w-100">Buscar</button>
-                    </div>
+            <form action="/geo/countries/create" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar País</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <!-- Linha: População + Idioma Oficial -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">População</label>
-                        <input type="number" class="form-control" placeholder="Ex: 213000000">
+                <div class="modal-body">
+                    <div class="row g-2 mb-3">
+                        <div class="col-8">
+                            <input id="addCountryName" type="text" name="nome" class="form-control" placeholder="Nome do país" required>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" id="btnLookupCountry" class="btn btn-success w-100">Buscar</button>
+                        </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Idioma Oficial</label>
-                        <input type="text" class="form-control" placeholder="Ex: Português">
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">População</label>
+                            <input id="addPopulation" type="number" name="populacao" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Idioma Oficial</label>
+                            <input id="addLanguage" type="text" name="idioma_oficial" class="form-control" required>
+                        </div>
                     </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Moeda</label>
+                            <input id="addCurrency" type="text" name="moeda" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Continente</label>
+                            <select class="form-select" name="continenteId" required>
+                                <option value="" selected disabled>Selecione...</option>
+                                <% (continents || []).forEach(c => { %>
+                                    <option value="<%= c.id %>"><%= c.nome %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="addSigla" name="sigla">
+                    <input type="hidden" id="addBandeira" name="bandeira">
+
+                    <div class="text-center mb-3">
+                        <img id="addFlagImg" src="https://flagcdn.com/w320/un.png"
+                            class="img-fluid rounded shadow-sm" style="max-width:120px;">
+                    </div>
+
+                    <button class="btn btn-success w-100">Adicionar</button>
                 </div>
-
-                <!-- Linha: Moeda + Continente -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Moeda</label>
-                        <input type="text" class="form-control" placeholder="Ex: Real (BRL)">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Continente</label>
-                        <select class="form-select">
-                            <option selected disabled>Selecione...</option>
-                            <option>América</option>
-                            <option>Europa</option>
-                            <option>Ásia</option>
-                            <option>África</option>
-                            <option>Oceania</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="text-center mb-3">
-                    <img src="https://flagcdn.com/w320/un.png" alt="Bandeira do País"
-                        class="img-fluid rounded shadow-sm" style="max-width: 120px;">
-                </div>
-
-                <button class="btn btn-success w-100">Adicionar</button>
-
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
+<!-- Modais Editar / Deletar de País -->
+<% (countries || []).forEach(p => { %>
 
-<!-- ============================== -->
-<!-- ModaL               -->
-<!-- ============================== -->
-
-<!-- Editar Brasil -->
-<div class="modal fade" id="modalEditBrasil" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Editar Brasil</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <!-- Nome (linha inteira) -->
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="Brasil">
-
-                <!-- Linha: População + Idioma -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">População</label>
-                        <input type="number" class="form-control" value="213000000">
+    <!-- Edit -->
+    <div class="modal fade" id="modalEditCountry-<%= p.id %>" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/geo/countries/edit/<%= p.id %>" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar <%= p.nome %></h5>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Idioma Oficial</label>
-                        <input type="text" class="form-control" value="Português">
+                    <div class="modal-body">
+
+                        <label class="form-label">Nome</label>
+                        <input type="text" name="nome" class="form-control mb-3" value="<%= p.nome %>" required>
+
+                        <div class="row g-2 mb-3">
+
+                            <div class="col-md-6">
+                                <label class="form-label">População</label>
+                                <input type="number" name="populacao" class="form-control" value="<%= p.populacao %>" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Idioma Oficial</label>
+                                <input type="text" name="idioma_oficial" class="form-control" value="<%= p.idioma_oficial %>" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+
+                            <div class="col-md-6">
+                                <label class="form-label">Moeda</label>
+                                <input type="text" name="moeda" class="form-control" value="<%= p.moeda %>" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Continente</label>
+                                <select class="form-select" name="continenteId" required>
+                                    <% continents.forEach(c => { %>
+                                        <option value="<%= c.id %>" <%= c.id === p.continenteId ? "selected" : "" %>><%= c.nome %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="sigla" value="<%= p.sigla %>">
+                        <input type="hidden" name="bandeira" value="<%= p.bandeira %>">
+
+                        <div class="text-center mb-3">
+                            <img src="<%= p.bandeira %>" class="img-fluid rounded shadow-sm" style="max-width:120px;">
+                        </div>
+
+                        <button class="btn btn-primary w-100">Salvar alterações</button>
                     </div>
-                </div>
-
-                <!-- Linha: Moeda + Continente -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Moeda</label>
-                        <input type="text" class="form-control" value="Real (BRL)">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Continente</label>
-                        <select class="form-select">
-                            <option selected>América</option>
-                            <option>Europa</option>
-                            <option>Ásia</option>
-                            <option>África</option>
-                            <option>Oceania</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="text-center mb-3">
-                    <img src="https://flagcdn.com/w320/br.png" alt="Bandeira do Brasil"
-                        class="img-fluid rounded shadow-sm" style="max-width: 120px;">
-                </div>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-
+                </form>
             </div>
         </div>
     </div>
-</div>
 
-
-
-<div class="modal fade" id="modalEditJapao" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Editar Japão</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <!-- Nome -->
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="Japão">
-
-                <!-- População + Idioma -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">População</label>
-                        <input type="number" class="form-control" value="125800000">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Idioma Oficial</label>
-                        <input type="text" class="form-control" value="Japonês">
-                    </div>
+    <!-- Delete -->
+    <div class="modal fade" id="modalDeleteCountry-<%= p.id %>" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Excluir <%= p.nome %></h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
-                <!-- Moeda + Continente -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Moeda</label>
-                        <input type="text" class="form-control" value="Iene (JPY)">
+                <form action="/geo/countries/delete/<%= p.id %>" method="POST">
+                    <div class="modal-body">
+                        Tem certeza que deseja excluir o país <strong><%= p.nome %></strong>?
                     </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Continente</label>
-                        <select class="form-select">
-                            <option>América</option>
-                            <option>Europa</option>
-                            <option selected>Ásia</option>
-                            <option>África</option>
-                            <option>Oceania</option>
-                        </select>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger w-100">Confirmar exclusão</button>
                     </div>
-                </div>
-
-                <div class="text-center mb-3">
-                    <img src="https://flagcdn.com/w320/jp.png" alt="Bandeira do Japão"
-                        class="img-fluid rounded shadow-sm" style="max-width: 120px;">
-                </div>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-
+                </form>
             </div>
         </div>
     </div>
-</div>
+<% }) %>
 
-
-
-<div class="modal fade" id="modalEditFranca" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Editar França</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <!-- Nome -->
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="França">
-
-                <!-- População + Idioma -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">População</label>
-                        <input type="number" class="form-control" value="67000000">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Idioma Oficial</label>
-                        <input type="text" class="form-control" value="Francês">
-                    </div>
-                </div>
-
-                <!-- Moeda + Continente -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Moeda</label>
-                        <input type="text" class="form-control" value="Euro (EUR)">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Continente</label>
-                        <select class="form-select">
-                            <option>América</option>
-                            <option selected>Europa</option>
-                            <option>Ásia</option>
-                            <option>África</option>
-                            <option>Oceania</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="text-center mb-3">
-                    <img src="https://flagcdn.com/w320/fr.png" alt="Bandeira do França"
-                        class="img-fluid rounded shadow-sm" style="max-width: 120px;">
-                </div>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<!-- ============================== -->
-<!-- Modais de Exclusão             -->
-<!-- ============================== -->
-
-<!-- Excluir Brasil -->
-<div class="modal fade" id="modalDeleteBrasil" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir Brasil</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir o país <strong>Brasil</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Excluir Japão -->
-<div class="modal fade" id="modalDeleteJapao" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir Japão</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir o país <strong>Japão</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Excluir França -->
-<div class="modal fade" id="modalDeleteFranca" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir França</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir o país <strong>França</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
+<script src="/js/admin/countries.js"></script>

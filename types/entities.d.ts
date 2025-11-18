@@ -11,6 +11,8 @@ export interface Pais {
   idioma_oficial: string;
   moeda: string;
   continenteId: number;
+  sigla: string;
+  bandeira: string;
 }
 
 export interface Cidade {

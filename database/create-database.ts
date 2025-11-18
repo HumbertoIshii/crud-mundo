@@ -31,17 +31,19 @@ CREATE TABLE IF NOT EXISTS admins (
 
 CREATE TABLE IF NOT EXISTS continentes (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(191) NOT NULL,
-  descricao TEXT NOT NULL
+  nome VARCHAR(255) NOT NULL,
+  descricao TEXT
 );
 
 CREATE TABLE IF NOT EXISTS paises (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(191) NOT NULL,
-  populacao INT NOT NULL,
-  idioma_oficial VARCHAR(191) NOT NULL,
-  moeda VARCHAR(191) NOT NULL,
+  nome VARCHAR(255) NOT NULL,
+  populacao INT,
+  idioma_oficial VARCHAR(255),
+  moeda VARCHAR(255),
   continenteId INT NOT NULL,
+  sigla VARCHAR(10),
+  bandeira VARCHAR(255),
   INDEX idx_paises_continenteId (continenteId),
   CONSTRAINT fk_paises_continente FOREIGN KEY (continenteId)
     REFERENCES continentes(id)
@@ -50,10 +52,10 @@ CREATE TABLE IF NOT EXISTS paises (
 
 CREATE TABLE IF NOT EXISTS cidades (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(191) NOT NULL,
-  populacao INT NOT NULL,
-  latitude FLOAT NOT NULL,
-  longitude FLOAT NOT NULL,
+  nome VARCHAR(255) NOT NULL,
+  populacao INT,
+  latitude FLOAT,
+  longitude FLOAT,
   paisId INT NOT NULL,
   INDEX idx_cidades_paisId (paisId),
   CONSTRAINT fk_cidades_pais FOREIGN KEY (paisId)
@@ -106,7 +108,6 @@ function main() {
     });
   });
 }
-
 
 function finalizar(db: mysql.Connection) {
   rl.close();

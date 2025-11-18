@@ -22,10 +22,12 @@
         <tbody>
             <% if (continents && continents.length > 0) { %>
                 <% continents.forEach(cont => { %>
-                    <tr data-bs-toggle="modal" data-bs-target="#modalEdit<%= cont.id %>" style="cursor:pointer;">
+                    <tr data-bs-toggle="modal" data-bs-target="#modalEditContinent-<%= cont.id %>" style="cursor:pointer;">
                         <td><%= cont.nome %></td>
                         <td class="text-end">
-                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete<%= cont.id %>" onclick="event.stopPropagation()">
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#modalDeleteContinent-<%= cont.id %>"
+                                onclick="event.stopPropagation()">
                                 <i class="fas fa-times"></i>
                             </button>
                         </td>
@@ -66,8 +68,9 @@
 <!-- Modais Editar e Deletar -->
 <% if (continents && continents.length > 0) { %>
     <% continents.forEach(cont => { %>
+
         <!-- Editar -->
-        <div class="modal fade" id="modalEdit<%= cont.id %>" tabindex="-1">
+        <div class="modal fade" id="modalEditContinent-<%= cont.id %>" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="/geo/continents/edit/<%= cont.id %>" method="POST">
@@ -90,14 +93,14 @@
         </div>
 
         <!-- Deletar -->
-        <div class="modal fade" id="modalDelete<%= cont.id %>" tabindex="-1">
+        <div class="modal fade" id="modalDeleteContinent-<%= cont.id %>" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-danger">Excluir <%= cont.nome %></h5>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
                     <form action="/geo/continents/delete/<%= cont.id %>" method="POST">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-danger">Excluir <%= cont.nome %></h5>
-                            <button class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
                         <div class="modal-body">
                             <p>Tem certeza que deseja excluir o continente <strong><%= cont.nome %></strong>?</p>
                         </div>
