@@ -147,11 +147,11 @@
 <div class="modal fade" id="modalEditCity-<%= ci.id %>" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar <%= ci.nome %></h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
             <form action="/geo/cities/edit/<%= ci.id %>" method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title">Editar <%= ci.nome %></h5>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
                 <div class="modal-body">
                     <label class="form-label">Nome</label>
                     <input type="text" name="nome" class="form-control mb-3" value="<%= ci.nome %>" required>

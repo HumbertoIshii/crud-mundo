@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const geoForms = document.querySelectorAll("#admin-city form, #admin-country form");
-    geoForms.forEach(form => {
+    const SCROLL_KEY = "geoScrollY";
+
+    document.querySelectorAll("form").forEach(form => {
         form.addEventListener("submit", () => {
-            localStorage.setItem("geoScrollY", window.scrollY);
+            localStorage.setItem(SCROLL_KEY, window.scrollY);
         });
     });
 
-    const geoPaginationLinks = document.querySelectorAll("#admin-city .pagination a, #admin-country .pagination a");
-    geoPaginationLinks.forEach(link => {
+    document.querySelectorAll(".pagination a").forEach(link => {
         link.addEventListener("click", () => {
-            localStorage.setItem("geoScrollY", window.scrollY);
+            localStorage.setItem(SCROLL_KEY, window.scrollY);
         });
     });
 
-    const savedScroll = localStorage.getItem("geoScrollY");
+    const savedScroll = localStorage.getItem(SCROLL_KEY);
     if (savedScroll) {
         window.scrollTo(0, parseInt(savedScroll));
-        localStorage.removeItem("geoScrollY");
+        localStorage.removeItem(SCROLL_KEY);
     }
 });
