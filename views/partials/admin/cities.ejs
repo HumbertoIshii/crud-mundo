@@ -1,35 +1,42 @@
 <div id="admin-city" class="card shadow rounded-4 p-4 mb-3">
     <h4 class="mb-3">Gerenciar Cidades</h4>
 
-    <!-- Controls -->
-    <div class="row g-2 mb-3">
+    <!-- Filters -->
+    <form method="GET" class="row g-2 mb-3">
         <div class="col-md-2">
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCity">
+            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCity">
                 <i class="fas fa-plus me-2"></i>Adicionar
             </button>
         </div>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="Pesquisar cidade..." />
+            <input type="text" name="citySearch" value="<%= citySearch || '' %>" class="form-control" placeholder="Pesquisar cidade...">
         </div>
         <div class="col-md-3">
-            <input type="text" class="form-control" placeholder="País ou Continente" />
+            <select class="form-select" name="countryId">
+                <option value="">Todos os países</option>
+                <% countriesList.forEach(c => { %>
+                    <option value="<%= c.id %>" <%= countrySelected == c.id ? 'selected' : '' %>><%= c.nome %></option>
+                <% }) %>
+            </select>
         </div>
         <div class="col-md-2">
-            <select class="form-select">
-                <option>Ordenar por</option>
-                <option>Nome</option>
-                <option>População</option>
-                <option>Latitude</option>
-                <option>Longitude</option>
-                <option>País</option>
-                <option>Continente</option>
+            <select class="form-select" name="cityOrderBy">
+                <option value="nome" <%= cityOrderBy === 'nome' ? 'selected' : '' %>>Nome</option>
+                <option value="populacao" <%= cityOrderBy === 'populacao' ? 'selected' : '' %>>População</option>
+                <option value="latitude" <%= cityOrderBy === 'latitude' ? 'selected' : '' %>>Latitude</option>
+                <option value="longitude" <%= cityOrderBy === 'longitude' ? 'selected' : '' %>>Longitude</option>
+                <option value="pais" <%= cityOrderBy === 'pais' ? 'selected' : '' %>>País</option>
             </select>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCity">Buscar</button>
+            <button class="btn btn-primary w-100">Buscar</button>
         </div>
-    </div>
-
+        <!-- Mantém a página de países para não resetar -->
+        <input type="hidden" name="countryPage" value="<%= currentPage || 1 %>">
+        <input type="hidden" name="search" value="<%= search || '' %>">
+        <input type="hidden" name="continent" value="<%= continentSelected || '' %>">
+        <input type="hidden" name="orderBy" value="<%= orderBy || '' %>">
+    </form>
 
     <!-- Table -->
     <table class="table table-hover align-middle">
@@ -37,350 +44,162 @@
             <tr>
                 <th>Cidade</th>
                 <th>País</th>
-                <th>Continente</th>
                 <th class="text-end">Excluir</th>
             </tr>
         </thead>
-
         <tbody>
-
-            <!-- São Paulo -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditSaoPaulo" style="cursor: pointer;">
-                <td>São Paulo</td>
-                <td>Brasil</td>
-                <td>América do Sul</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger"
-                        onclick="event.stopPropagation()"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDeleteSaoPaulo">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <!-- Tóquio -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditToquio" style="cursor: pointer;">
-                <td>Tóquio</td>
-                <td>Japão</td>
-                <td>Ásia</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger"
-                        onclick="event.stopPropagation()"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDeleteToquio">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <!-- Paris -->
-            <tr data-bs-toggle="modal" data-bs-target="#modalEditParis" style="cursor: pointer;">
-                <td>Paris</td>
-                <td>França</td>
-                <td>Europa</td>
-                <td class="text-end">
-                    <button class="btn btn-sm btn-danger"
-                        onclick="event.stopPropagation()"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDeleteParis">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </td>
-            </tr>
-
+            <% if (!cities || cities.length === 0) { %>
+                <tr>
+                    <td colspan="3" class="text-center text-muted">Nenhuma cidade encontrada.</td>
+                </tr>
+            <% } else { %>
+                <% cities.forEach(ci => { %>
+                    <tr data-bs-toggle="modal" data-bs-target="#modalEditCity-<%= ci.id %>" style="cursor:pointer;">
+                        <td><%= ci.nome %></td>
+                        <td><%= ci.pais %></td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-danger"
+                                data-bs-toggle="modal" data-bs-target="#modalDeleteCity-<%= ci.id %>"
+                                onclick="event.stopPropagation()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } %>
         </tbody>
     </table>
 
     <!-- Pagination -->
     <nav>
         <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link text-secondary" href="#"><span>&laquo;</span></a>
-            </li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
-            <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link text-secondary" href="#"><span>&raquo;</span></a>
-            </li>
+            <% if (cityCurrentPage > 1) { %>
+                <li class="page-item">
+                    <a class="page-link text-secondary"
+                        href="?cityPage=<%= cityCurrentPage - 1 %>&countryPage=<%= currentPage || 1 %>&citySearch=<%= citySearch || '' %>&countryId=<%= countrySelected || '' %>&cityOrderBy=<%= cityOrderBy || '' %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
+                        &laquo;
+                    </a>
+                </li>
+            <% } %>
+            <% for (let i = 1; i <= (cityTotalPages || 1); i++) { %>
+                <li class="page-item <%= i === cityCurrentPage ? 'active' : '' %>">
+                    <a class="page-link"
+                        href="?cityPage=<%= i %>&countryPage=<%= currentPage || 1 %>&citySearch=<%= citySearch || '' %>&countryId=<%= countrySelected || '' %>&cityOrderBy=<%= cityOrderBy || '' %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
+                        <%= i %>
+                    </a>
+                </li>
+            <% } %>
+            <% if (cityCurrentPage < cityTotalPages) { %>
+                <li class="page-item">
+                    <a class="page-link text-secondary"
+                        href="?cityPage=<%= cityCurrentPage + 1 %>&countryPage=<%= currentPage || 1 %>&citySearch=<%= citySearch || '' %>&countryId=<%= countrySelected || '' %>&cityOrderBy=<%= cityOrderBy || '' %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
+                        &raquo;
+                    </a>
+                </li>
+            <% } %>
         </ul>
     </nav>
 </div>
 
-
-<!-- ============================== -->
-<!-- Modal: Adicionar Cidade        -->
-<!-- ============================== -->
+<!-- Modal Adicionar Cidade -->
 <div class="modal fade" id="modalAddCity" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Adicionar Cidade</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <!-- Nome (linha única) -->
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" placeholder="Nome da cidade">
-
-                <div class="row">
-                    <!-- Latitude -->
-                    <div class="col-md-6">
-                        <label class="form-label">Latitude</label>
-                        <input type="number" step="0.0001" class="form-control mb-3" placeholder="Ex: -23.5505">
-                    </div>
-
-                    <!-- Longitude -->
-                    <div class="col-md-6">
-                        <label class="form-label">Longitude</label>
-                        <input type="number" step="0.0001" class="form-control mb-3" placeholder="Ex: -46.6333">
-                    </div>
+            <form action="/geo/cities/create" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Cidade</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
-                <div class="row">
-                    <!-- População -->
-                    <div class="col-md-6">
-                        <label class="form-label">População</label>
-                        <input type="number" class="form-control mb-3" placeholder="Ex: 12000000">
+                <div class="modal-body">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome" class="form-control mb-3" placeholder="Nome da cidade" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Latitude</label>
+                            <input type="number" step="0.0001" name="latitude" class="form-control mb-3" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Longitude</label>
+                            <input type="number" step="0.0001" name="longitude" class="form-control mb-3" required>
+                        </div>
                     </div>
-
-                    <!-- País (AGORA TEXTO!) -->
-                    <div class="col-md-6">
-                        <label class="form-label">País</label>
-                        <input type="text" class="form-control mb-3" placeholder="Ex: Brasil">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">População</label>
+                            <input type="number" name="populacao" class="form-control mb-3" required>
+                        </div>
+                        <div class="col-md-6 position-relative">
+                            <label class="form-label">País</label>
+                            <input type="text" id="addCityCountryInput" class="form-control mb-3" placeholder="Ex: Brasil" required>
+                            <input type="hidden" name="paisId" id="addCityCountryId">
+                        </div>
                     </div>
+                    <button class="btn btn-success w-100">Adicionar</button>
                 </div>
-
-                <button class="btn btn-success w-100">Adicionar</button>
-
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
-
-
-
-<!-- ============================== -->
-<!-- Modais de Edição               -->
-<!-- ============================== -->
-
-<!-- Editar São Paulo -->
-<div class="modal fade" id="modalEditSaoPaulo" tabindex="-1">
+<!-- Modais Editar / Deletar -->
+<% if (cities) { %>
+<% cities.forEach(ci => { %>
+<div class="modal fade" id="modalEditCity-<%= ci.id %>" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Editar São Paulo</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="São Paulo">
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="form-label">Latitude</label>
-                        <input type="number" class="form-control mb-3" step="0.0001" value="-23.5505">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Longitude</label>
-                        <input type="number" class="form-control mb-3" step="0.0001" value="-46.6333">
-                    </div>
+            <form action="/geo/cities/edit/<%= ci.id %>" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar <%= ci.nome %></h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="form-label">População</label>
-                        <input type="number" class="form-control mb-3" value="12300000">
+                <div class="modal-body">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome" class="form-control mb-3" value="<%= ci.nome %>" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Latitude</label>
+                            <input type="number" step="0.0001" name="latitude" class="form-control mb-3" value="<%= ci.latitude %>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Longitude</label>
+                            <input type="number" step="0.0001" name="longitude" class="form-control mb-3" value="<%= ci.longitude %>" required>
+                        </div>
                     </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">País</label>
-                        <input type="text" class="form-control mb-3" value="Brasil">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">População</label>
+                            <input type="number" name="populacao" class="form-control mb-3" value="<%= ci.populacao %>" required>
+                        </div>
+                        <div class="col-md-6 position-relative">
+                            <label class="form-label">País</label>
+                            <input type="text" class="form-control mb-3 editCityCountryInput" value="<%= ci.pais %>" id="editCityCountryInput-<%= ci.id %>" data-hidden-id="editCityCountryId-<%= ci.id %>" required>
+                            <input type="hidden" name="paisId" id="editCityCountryId-<%= ci.id %>" value="<%= ci.paisId %>">
+                        </div>
                     </div>
+                    <button class="btn btn-primary w-100">Salvar alterações</button>
                 </div>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
-
-
-<!-- Editar Tóquio -->
-<div class="modal fade" id="modalEditToquio" tabindex="-1">
-    <div class="modal-dialog">
+<div class="modal fade" id="modalDeleteCity-<%= ci.id %>" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-
             <div class="modal-header">
-                <h5 class="modal-title">Editar Tóquio</h5>
+                <h5 class="modal-title">Excluir Cidade</h5>
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
-            <div class="modal-body">
-
-                <!-- Nome -->
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="Tóquio">
-
-                <div class="row">
-                    <!-- Latitude -->
-                    <div class="col-md-6">
-                        <label class="form-label">Latitude</label>
-                        <input type="number" step="0.0001" class="form-control mb-3" value="35.6762">
-                    </div>
-
-                    <!-- Longitude -->
-                    <div class="col-md-6">
-                        <label class="form-label">Longitude</label>
-                        <input type="number" step="0.0001" class="form-control mb-3" value="139.6503">
-                    </div>
+            <form action="/geo/cities/delete/<%= ci.id %>" method="POST">
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir <strong><%= ci.nome %></strong>?</p>
+                    <button class="btn btn-danger w-100">Excluir</button>
                 </div>
-
-                <div class="row">
-                    <!-- População -->
-                    <div class="col-md-6">
-                        <label class="form-label">População</label>
-                        <input type="number" class="form-control mb-3" value="37400000">
-                    </div>
-
-                    <!-- País (texto) -->
-                    <div class="col-md-6">
-                        <label class="form-label">País</label>
-                        <input type="text" class="form-control mb-3" value="Japão">
-                    </div>
-                </div>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-
-            </div>
+            </form>
         </div>
     </div>
 </div>
+<% }) %>
+<% } %>
 
-
-<!-- Editar Paris -->
-<div class="modal fade" id="modalEditParis" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Editar Paris</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <!-- Nome -->
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control mb-3" value="Paris">
-
-                <div class="row">
-                    <!-- Latitude -->
-                    <div class="col-md-6">
-                        <label class="form-label">Latitude</label>
-                        <input type="number" step="0.0001" class="form-control mb-3" value="48.8566">
-                    </div>
-
-                    <!-- Longitude -->
-                    <div class="col-md-6">
-                        <label class="form-label">Longitude</label>
-                        <input type="number" step="0.0001" class="form-control mb-3" value="2.3522">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <!-- População -->
-                    <div class="col-md-6">
-                        <label class="form-label">População</label>
-                        <input type="number" class="form-control mb-3" value="2100000">
-                    </div>
-
-                    <!-- País (texto) -->
-                    <div class="col-md-6">
-                        <label class="form-label">País</label>
-                        <input type="text" class="form-control mb-3" value="França">
-                    </div>
-                </div>
-
-                <button class="btn btn-primary w-100">Salvar alterações</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- ============================== -->
-<!-- Modais de Exclusão             -->
-<!-- ============================== -->
-
-<!-- Excluir São Paulo -->
-<div class="modal fade" id="modalDeleteSaoPaulo" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir São Paulo</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir a cidade <strong>São Paulo</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<!-- Excluir Tóquio -->
-<div class="modal fade" id="modalDeleteToquio" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir Tóquio</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir a cidade <strong>Tóquio</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<!-- Excluir Paris -->
-<div class="modal fade" id="modalDeleteParis" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-danger">Excluir Paris</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir a cidade <strong>Paris</strong>?</p>
-                <button class="btn btn-danger w-100">Confirmar exclusão</button>
-            </div>
-
-        </div>
-    </div>
-</div>
+<script src="/js/admin/cities.js"></script>

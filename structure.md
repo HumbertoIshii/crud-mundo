@@ -8,7 +8,10 @@ crud-mundo/
 │   │   └── style.css
 │   └── js/
 │       ├── index.js
-│       └── geo.js
+│       ├── geo.js
+│       └── admin/
+│           ├── cities.js
+│           └── countries.js
 ├── types/
 │   ├── entities.d.ts
 │   └── express-session.d.ts
@@ -44,6 +47,8 @@ crud-mundo/
 │       ├── continents.ts
 │       └── countries.ts
 ├── services/
+│   ├── external/
+│   │   └── restCountries.service.ts
 │   ├── dashbord/
 │   │   ├── cities.service.ts
 │   │   ├── continents.service.ts

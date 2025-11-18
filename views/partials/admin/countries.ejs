@@ -1,7 +1,7 @@
 <div id="admin-country" class="card shadow rounded-4 p-4 mb-3">
     <h4 class="mb-3">Gerenciar Países</h4>
 
-    <!-- Controls / Filters (submete GET para /geo) -->
+    <!-- Filtros Países -->
     <form method="GET" class="row g-2 mb-3">
         <div class="col-md-2">
             <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalAddCountry">
@@ -31,9 +31,15 @@
         <div class="col-md-1">
             <button class="btn btn-primary w-100">Buscar</button>
         </div>
+
+        <!-- Hidden inputs para preservar filtros de cidades -->
+        <input type="hidden" name="cityPage" value="<%= cityCurrentPage || 1 %>">
+        <input type="hidden" name="citySearch" value="<%= citySearch || '' %>">
+        <input type="hidden" name="cityCountryContinent" value="<%= cityCountryContinent || '' %>">
+        <input type="hidden" name="cityOrderBy" value="<%= cityOrderBy || '' %>">
     </form>
 
-    <!-- Table -->
+    <!-- Tabela Países -->
     <table class="table table-hover align-middle">
         <thead>
             <tr>
@@ -42,7 +48,6 @@
                 <th class="text-end">Excluir</th>
             </tr>
         </thead>
-
         <tbody>
             <% if (!countries || countries.length === 0) { %>
                 <tr>
@@ -54,9 +59,7 @@
                         <td><%= p.nome %></td>
                         <td><%= p.continente %></td>
                         <td class="text-end">
-                            <button class="btn btn-sm btn-danger"
-                                data-bs-toggle="modal" data-bs-target="#modalDeleteCountry-<%= p.id %>"
-                                onclick="event.stopPropagation()">
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteCountry-<%= p.id %>" onclick="event.stopPropagation()">
                                 <i class="fas fa-times"></i>
                             </button>
                         </td>
@@ -66,33 +69,22 @@
         </tbody>
     </table>
 
-    <!-- Pagination -->
+    <!-- Paginação Países -->
     <nav>
         <ul class="pagination justify-content-center">
             <% if (currentPage > 1) { %>
                 <li class="page-item">
-                    <a class="page-link text-secondary"
-                        href="?countryPage=<%= currentPage - 1 %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
-                        &laquo;
-                    </a>
+                    <a class="page-link text-secondary" href="?countryPage=<%= currentPage - 1 %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>&cityPage=<%= cityCurrentPage || 1 %>&citySearch=<%= citySearch || '' %>&cityCountryContinent=<%= cityCountryContinent || '' %>&cityOrderBy=<%= cityOrderBy || '' %>">&laquo;</a>
                 </li>
             <% } %>
-
             <% for (let i = 1; i <= (totalPages || 1); i++) { %>
                 <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                    <a class="page-link"
-                        href="?countryPage=<%= i %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
-                        <%= i %>
-                    </a>
+                    <a class="page-link" href="?countryPage=<%= i %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>&cityPage=<%= cityCurrentPage || 1 %>&citySearch=<%= citySearch || '' %>&cityCountryContinent=<%= cityCountryContinent || '' %>&cityOrderBy=<%= cityOrderBy || '' %>"><%= i %></a>
                 </li>
             <% } %>
-
             <% if (currentPage < totalPages) { %>
                 <li class="page-item">
-                    <a class="page-link text-secondary"
-                        href="?countryPage=<%= currentPage + 1 %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>">
-                        &raquo;
-                    </a>
+                    <a class="page-link text-secondary" href="?countryPage=<%= currentPage + 1 %>&search=<%= search || '' %>&continent=<%= continentSelected || '' %>&orderBy=<%= orderBy || '' %>&cityPage=<%= cityCurrentPage || 1 %>&citySearch=<%= citySearch || '' %>&cityCountryContinent=<%= cityCountryContinent || '' %>&cityOrderBy=<%= cityOrderBy || '' %>">&raquo;</a>
                 </li>
             <% } %>
         </ul>
