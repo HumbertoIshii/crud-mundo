@@ -48,6 +48,11 @@ router.get("/lookup", async (req: Request, res: Response) => {
 router.post("/create", async (req: Request, res: Response) => {
   try {
     const { nome, populacao, idioma_oficial, moeda, continenteId, sigla, bandeira } = req.body;
+
+    if (!continenteId || isNaN(Number(continenteId))) {
+      return res.status(400).send("Nenhum continente foi selecionado.");
+    }
+
     await createCountry({
       nome,
       populacao: Number(populacao) || 0,

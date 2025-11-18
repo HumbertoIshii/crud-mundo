@@ -61,6 +61,7 @@ export async function getCountries(filters: CountryFilters) {
       p.populacao,
       p.idioma_oficial,
       p.moeda,
+      p.bandeira,
       c.nome AS continente
     FROM paises p
     JOIN continentes c ON c.id = p.continenteId
