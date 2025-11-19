@@ -1,0 +1,17 @@
+<div class="card shadow rounded-4 p-4 mb-3">
+  <h4 class="mb-3">Mapa de Cidades</h4>
+
+  <div id="dashboard-map" style="height: 400px;"></div>
+</div>
+
+<!-- Leaflet CSS + JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Exporta marcadores para o JavaScript -->
+<script>
+  window.DASHBOARD_MARKERS = <%- JSON.stringify(markers || []) %>;
+</script>
+
+<!-- Carrega o JS do mapa -->
+<script src="/js/dashboard/map.js"></script>
