@@ -1,8 +1,8 @@
 import { db } from "../../database/database";
 
 interface CityFilters {
-  search?: string; // busca pelo nome da cidade
-  searchCountryContinent?: string; // busca por país ou continente
+  search?: string;
+  searchCountryContinent?: string;
   orderBy?: string;
   page?: number;
 }

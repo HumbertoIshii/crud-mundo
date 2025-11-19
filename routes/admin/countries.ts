@@ -1,4 +1,3 @@
-// routes/admin/countries.ts
 import { Router, Request, Response } from "express";
 import {
   getCountries,
@@ -12,7 +11,6 @@ import { lookupCountryByName } from "../../services/external/restCountries.servi
 
 const router = Router();
 
-// GET "/" retornando JSON (opcional)
 router.get("/", async (req: Request, res: Response) => {
   try {
     const filters = {
@@ -29,14 +27,12 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// Lookup (AJAX) - busca na REST Countries para popular modal
 router.get("/lookup", async (req: Request, res: Response) => {
   const name = req.query.name?.toString() || "";
   if (!name) return res.status(400).json({ error: "Nome do país obrigatório", found: false });
   try {
     const result = await lookupCountryByName(name);
     if (!result.found) return res.status(404).json({ found: false });
-    // result já contém found + population + languages + currencies + flagUrl + iso2
     return res.json(result);
   } catch (err) {
     console.error("Erro lookup country:", err);

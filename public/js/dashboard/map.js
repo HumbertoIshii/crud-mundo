@@ -1,4 +1,3 @@
-// public/js/dashboard/map.js
 (function () {
   function loadScript(src, cb) {
     var s = document.createElement("script");
@@ -16,7 +15,6 @@
     var container = document.getElementById("dashboard-map");
     if (!container) return;
 
-    // Agora os markers vêm direto de window.DASHBOARD_MARKERS
     var markers = window.DASHBOARD_MARKERS || [];
 
     var map = L.map("dashboard-map");
@@ -44,7 +42,6 @@
     }
   }
 
-  // Se Leaflet já estiver carregado (pelo CDN)
   if (window.L && window.L.map) {
     document.addEventListener("DOMContentLoaded", initMap);
   } else {

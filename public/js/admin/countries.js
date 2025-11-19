@@ -1,4 +1,3 @@
-// public/js/admin/countries.js
 document.addEventListener("DOMContentLoaded", () => {
   const btnLookup = document.getElementById("btnLookupCountry");
   const nameInput = document.getElementById("addCountryName");

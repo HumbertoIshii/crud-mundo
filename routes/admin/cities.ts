@@ -1,4 +1,3 @@
-// routes/admin/cities.ts
 import { Router, Request, Response } from "express";
 import {
   getCities,
@@ -11,7 +10,6 @@ import {
 
 const router = Router();
 
-// GET "/" - retorna JSON das cidades (opcional)
 router.get("/", async (req: Request, res: Response) => {
   try {
     const filters = {
@@ -28,7 +26,7 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// AJAX - Autocomplete País
+
 router.get("/autocomplete-country", async (req: Request, res: Response) => {
   try {
     const name = req.query.name?.toString() || "";

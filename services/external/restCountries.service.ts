@@ -1,4 +1,3 @@
-// services/external/restCountries.service.ts
 import fetch from "node-fetch";
 
 interface RestCountryResult {
@@ -57,7 +56,6 @@ export async function lookupCountryByName(name: string): Promise<{
         raw: country,
       };
     } catch (err) {
-      // tenta próxima URL
       continue;
     }
   }

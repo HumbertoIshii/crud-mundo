@@ -1,4 +1,3 @@
-// services/admin/cities.service.ts
 import { db } from "../../database/database";
 import { Cidade, Pais } from "../../types/entities";
 

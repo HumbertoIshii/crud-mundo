@@ -9,7 +9,6 @@ import {
 
 const router = Router();
 
-// Listar continentes (para páginas de administração)
 router.get("/", async (req, res) => {
   try {
     const continents = await getAllContinents();
@@ -25,7 +24,7 @@ router.post("/create", async (req, res) => {
   const { nome, descricao } = req.body;
   try {
     await createContinent(nome, descricao);
-    res.redirect("/geo"); // <-- Corrigido
+    res.redirect("/geo");
   } catch (err) {
     console.error(err);
     res.status(500).send("Erro ao criar continente");
@@ -38,7 +37,7 @@ router.post("/edit/:id", async (req, res) => {
   const { nome, descricao } = req.body;
   try {
     await updateContinent(Number(id), nome, descricao);
-    res.redirect("/geo"); // <-- Corrigido
+    res.redirect("/geo");
   } catch (err) {
     console.error(err);
     res.status(500).send("Erro ao atualizar continente");
@@ -50,7 +49,7 @@ router.post("/delete/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await deleteContinent(Number(id));
-    res.redirect("/geo"); // <-- Corrigido
+    res.redirect("/geo");
   } catch (err) {
     console.error(err);
     res.status(500).send("Erro ao deletar continente");

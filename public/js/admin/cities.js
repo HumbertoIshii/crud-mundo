@@ -42,12 +42,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Autocomplete para criação
   const addInput = document.getElementById("addCityCountryInput");
   const addHidden = document.getElementById("addCityCountryId");
   if (addInput && addHidden) initAutocomplete(addInput, addHidden);
 
-  // Autocomplete para edição
   document.querySelectorAll(".editCityCountryInput").forEach(input => {
     const hiddenId = input.dataset.hiddenId;
     const hiddenInput = document.getElementById(hiddenId);

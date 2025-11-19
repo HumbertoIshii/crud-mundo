@@ -9,13 +9,11 @@ import { db } from "../database/database";
 
 const router = Router();
 
-// Middleware de autenticação
 router.use((req: Request, res: Response, next) => {
   if (!req.session || !req.session.user) return res.redirect("/login");
   next();
 });
 
-// Página principal de geo
 router.get("/", async (req: Request, res: Response) => {
   try {
     const continents = await getContinentsList();
@@ -58,7 +56,7 @@ router.get("/", async (req: Request, res: Response) => {
       citySearch: cityFilters.search,
       countrySelected: cityFilters.countryId || "",
       cityOrderBy: cityFilters.orderBy,
-      cityCountryContinent: cityFilters.continentId || "", // ✅ Corrigido
+      cityCountryContinent: cityFilters.continentId || "",
       countriesList,
     });
   } catch (err) {
@@ -67,7 +65,6 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// Sub-rotas de admin
 router.use("/continents", adminContinentsRouter);
 router.use("/countries", adminCountriesRouter);
 router.use("/cities", citiesRouter);
