@@ -1,3 +1,4 @@
+``` text
 crud-mundo/
 ├── database/
 │   ├── database.ts
@@ -9,9 +10,11 @@ crud-mundo/
 │   └── js/
 │       ├── index.js
 │       ├── geo.js
-│       └── admin/
-│           ├── cities.js
-│           └── countries.js
+│       ├── admin/
+│       │   ├── cities.js
+│       │   └── countries.js
+│       └── dashbord/
+│           └── map.js
 ├── types/
 │   ├── entities.d.ts
 │   └── express-session.d.ts
@@ -26,6 +29,7 @@ crud-mundo/
 │   │   │   └── countries.ejs
 │   │   └── dashboard/
 │   │       ├── general.ejs
+│   │       ├── map.ejs
 │   │       ├── cities.ejs
 │   │       ├── continents.ejs
 │   │       └── countries.ejs
@@ -48,6 +52,7 @@ crud-mundo/
 │       └── countries.ts
 ├── services/
 │   ├── external/
+│   │   ├── map.service.ts
 │   │   └── restCountries.service.ts
 │   ├── dashbord/
 │   │   ├── cities.service.ts
@@ -65,3 +70,4 @@ crud-mundo/
 ├── tsconfig.json
 ├── README.md
 └── structure.md
+```
