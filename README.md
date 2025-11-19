@@ -221,3 +221,14 @@ npm run dev
 
 
 ## Preview do Projeto
+### DashBoard
+
+https://github.com/user-attachments/assets/de56e903-c434-4841-b02c-70b3dba0faca
+
+### Página de Administração
+
+https://github.com/user-attachments/assets/4b101bc7-1cb8-4e6f-b6e1-dc39eb64d514
+
+
+
+
