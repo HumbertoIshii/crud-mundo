@@ -15,7 +15,6 @@
         </li>
 
         <% if (session && session.user) { %>
-          <!-- Mostrar "Gerenciar" e "Logout" se o admin estiver logado -->
           <li class="nav-item">
             <a class="nav-link px-3 py-2" href="/geo">Gerenciar</a>
           </li>
@@ -23,7 +22,6 @@
             <a class="nav-link px-3 py-2" href="/logout">Logout</a>
           </li>
         <% } else { %>
-          <!-- Mostrar apenas "Login" se não estiver logado -->
           <li class="nav-item">
             <a class="nav-link px-3 py-2" href="/login">Login</a>
           </li>
